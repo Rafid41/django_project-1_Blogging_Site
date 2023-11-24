@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    
+    
+    <!-- popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.8/umd/popper.min.js" integrity="sha512-TPh2Oxlg1zp+kz3nFA0C5vVC6leG/6mm1z9+mA81MI5eaUVqasPLO8Cuk4gMF4gUfP5etR73rgU/8PNMsSesoQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <!-- fontawesome -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- block er vitor kisu ashle seta dekhabe, kisu na ashle "Blogs" show korbe -->
+    <title>{% block title_block %} Blogs {% endblock %}</title>
+
+</head>
+<body>
+    
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <ul class="navbar-nav">
+            <li class="nav-item-active">
+                <!-- {% url 'index' %} ekhane kono app_name deya hynay, cz eta main_project_subfolder er urls.py er vitor ache -->
+                <a class="nav-link" href="{% url 'index' %}">
+                    <img src="/media/logo.png" width="40px">
+                </a>
+                
+            </li>
+
+             <!-- dropdown navigation bar on username-->
+            {% if user.is_authenticated %}
+                <div clas='nav-item dropdown'>
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                        @{{user.username}}
+                    </a>
+                
+                    <!-- menu items in drop down -->
+                    <div class="dropdown-menu">
+                        
+                        <a class="dropdown-item" href="{% url 'App_Blog:create_blog' %}">Write Blog</a>
+                        <a class="dropdown-item" href="{% url 'App_Blog:my_blogs' %}">My Blogs</a>
+                        <a class="dropdown-item" href="{% url 'App_Login:profile' %}">Your Profile</a>
+
+                        <hr>
+                        <a class="dropdown-item" href="{% url 'App_Login:logout' %}">Logout</a>
+                        
+                    </div>
+
+                </div>
+
+
+            {% else %}
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'App_Login:signup' %}">Sign Up</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'App_Login:login' %}">Login</a>
+                </li>
+
+            {% endif %}
+            
+        </ul>
+
+       
+
+
+    </nav>
+
+    <div class="container" style="padding-top:20px">
+
+        {% block body_block %}
+
+        {% endblock %}
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title_block %} User Profile {% endblock %}
+
+{% block body_block %}
+
+    <!-- "user" variable auto pass kore authentication method,vinno dict diye pass kora lagena -->
+    <h2>Your Profile</h2>
+
+    <!-- 'related_name' holo models.py er 'class UserProfile' er 'user' er 'related_name=' -->
+    <!-- checks user_profile e data ache kina-->
+    {% if user.user_profile %}
+
+        <!-- profile_pic is a fiels name in that class in models.py-->
+        <img src='/media/{{ user.user_profile.profile_pic }}' class='rounded-circle' width="100px">
+
+
+        <br>
+        <br>
+
+        <a href="{% url 'App_Login:change_pro_pic' %}" class="btn btn-info btn-sm">Change Profile Pic</a>
+
+
+
+
+    {% else %}
+        <img src='/media/profile_pics/default_profile_pic.png' class='rounded-circle' width="100px">
+
+        <br>
+        <br>
+
+        <a href="{% url 'App_Login:add_pro_pic' %}" class="btn btn-info btn-sm">Change Profile Pic</a>
+    {% endif %}
+    <br>
+    <br>
+
+
+    <p>Username: {{user.username}}</p>
+    <p>Email: {{user.email}}</p>
+    <p>Name: {{user.first_name}} {{user.last_name}}</p>
+
+    <br>
+
+    <a href="{% url 'App_Login:user_change' %}" class="btn btn-warning btn-sm" >Change Profile Info</a>
+
+{% endblock %}

@@ -1,0 +1,48 @@
+<!-- 'base.html'  direct template folder e ache, tai kono specific folder name deya lagenay-->
+{% extends 'base.html' %}
+
+
+<!-- load custom fiuler, j file load korbo se file er .py baade name-->
+{% load custom_filters %}
+
+{% block title_block %} Home {% endblock %}
+{% block body_block %}
+
+    
+{% for blog in blogs %}
+    <h3>{{ blog.blog_title }}</h3>
+    <h6><i>{{ blog.publish_date }}</i></h6>     <!-- <i> == italic-->
+
+    <!--
+         #screen k 12 vag e vag korbe as column
+         # sub-div er class="col-sm-4"
+         # sub-div er class="col-sm-8
+         # ekhabe 4:8 vag dbe 2 div k
+         # joto issa vage vag kora jay, bt total sum==12 hte hbe
+    -->
+    <div class="row">
+        <div class="col-sm-4">
+
+            <img src="/media/{{blog.blog_image}}" alt="{{blog.blog_title}}" title="{{blog.blog_title}}" width="100%">
+
+        </div>
+
+        <div class="col-sm-8">
+            <!-- linebreaks diye paragraph, newline orienrtation main texter moto rakhe-->
+            <!-- range_filter ashse custom_filters theke-->
+            <p>{{blog.blog_content|range_filter|linebreaks}} <a href="{% url 'App_Blog:blog_details' slug=blog.slug %}">Read More</a></p>
+
+            <h6>Posted By: <a href="#">@{{blog.author}}</a></h6>
+
+            <!-- like comment count, "liked_blog","blog_comment" are related names in models.py-->
+            <i><h6>{{blog.liked_blog.count}} Likes | {{blog.blog_comment.count}} Comments</h6>
+
+        </div>
+    </div>
+    <hr>
+
+
+
+{% endfor %}
+
+{% endblock %}
