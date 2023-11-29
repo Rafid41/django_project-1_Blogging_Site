@@ -1,4 +1,9 @@
 # django_project-1_Blogging_Site
+<strong>To start project, select a folder and in cmd type:</strong><br>
+django-admin startproject Blog_Project
+
+<br>
+<br>
 
 <strong>Venv:</strong>
 in project main directory start virtualenv:<br>
